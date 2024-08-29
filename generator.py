@@ -10,7 +10,7 @@ from datetime import date
 scope = ['https://www.googleapis.com/auth/spreadsheets',
         'https://www.googleapis.com/auth/drive']
 
-creds = ServiceAccountCredentials.from_json_keyfile_name('voucher-manager-433718-ccd636ddb239.json',scope)
+creds = ServiceAccountCredentials.from_service_account_info(st.secrets,scope)
 
 client = gspread.authorize(creds)
 
