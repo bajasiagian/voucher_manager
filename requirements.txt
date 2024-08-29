@@ -7,4 +7,4 @@ pandas == 2.2.2
 gspread == 5.12.4
 qrcode == 7.4.2
 uuid == 1.30
-zbar == 0.10
+pip == 24.2
