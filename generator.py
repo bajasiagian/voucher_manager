@@ -6,20 +6,11 @@ from oauth2client.service_account import ServiceAccountCredentials
 import gspread
 import pandas as pd
 from datetime import date
-import json
-import toml
 
 scope = ['https://www.googleapis.com/auth/spreadsheets',
         'https://www.googleapis.com/auth/drive']
 
-#Get Creds from secrets
-with open(st.secrets, 'r') as f:
-    toml_data = toml.load(f)
-
-json_data = json.dumps(toml_data, indent=4)
-
-creds = ServiceAccountCredentials.from_json_keyfile_name(json_data,scope)
-
+creds = ServiceAccountCredentials.from_json_keyfile_name(st.secrets["google creds"]["project_settings"],scope)
 client = gspread.authorize(creds)
 
 sheet = client.open('Voucher Database').worksheet("database")
