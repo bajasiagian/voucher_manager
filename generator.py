@@ -10,8 +10,8 @@ from datetime import date
 scope = ['https://www.googleapis.com/auth/spreadsheets',
         'https://www.googleapis.com/auth/drive']
 
-creds = ServiceAccountCredentials.service_account_from_dict(st.secrets["google_creds"],scope)
-client = gspread.authorize(creds)
+# creds = ServiceAccountCredentials.service_account_from_dict(st.secrets["google_creds"],scope)
+client = gspread.service_account_from_dict(st.secrets["google_creds"])
 
 sheet = client.open('Voucher Database').worksheet("database")
 data = sheet.get_all_values()
