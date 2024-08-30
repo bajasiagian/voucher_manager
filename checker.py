@@ -56,14 +56,14 @@ with st.container(border=True):
                 st.write(date_diff)
             
                 # Check if still valid
-                if date_diff <= 0:
-                    st.write("Expired")
+                if date_diff < 0:
+                    st.warning("Voucher Expired")
                     #Update expired
                     expire_update = pd.DataFrame({"voucher_id":[code],"triggered_date":[str(datetime.datetime.today())]})
                     expired_df = pd.concat([expired_df,expire_update])
                     expired.update([expired_df.columns.values.tolist()] + expired_df.values.tolist(), value_input_option="RAW")
 
-                elif date_diff > 0:
+                elif date_diff >= 0:
                     discount = db_df[db_df.voucher_id==code]['discount_amount'].iloc[0]
                     st.success(f"Voucher bisa digunakan! Diskon : {discount}")
                     #Update used_voucher
@@ -76,6 +76,9 @@ with st.container(border=True):
             
             elif code in used_df.voucher_id.tolist():
                 st.warning(f"Voucher ini telah digunakan pada {used_df[used_df.voucher_id==code]['used_at'].iloc[0]}")
+                
+            elif code in expired_df.voucher_id.tolist():
+                st.warning(f"Voucher telah kadaluarsa dan telah dicoba lagi pada {expired_df[expired_df.voucher_id==code]['triggered_date'].iloc[0]}") 
             
         except:
             st.warning("Gagal membaca QR Code, ulang pengecekan")
@@ -96,17 +99,14 @@ with st.container(border=True):
                 date_diff = (datetime.datetime.strptime(db_df[db_df.voucher_id==code]['end_date'].iloc[0],"%Y-%m-%d") - datetime.datetime.today()).days
                 st.write(date_diff)
                 # Check if still valid
-                if date_diff <= 0:
-                    st.write("Expired log1")
+                if date_diff < 0:
+                    st.warning("Voucher Expired")
                     #Update expired
-                    st.write("Check 1.1")
                     expire_update = pd.DataFrame({"voucher_id":[code],"triggered_date":[str(datetime.datetime.today())]})
-                    st.write("Expired log2")
                     expired_df = pd.concat([expired_df,expire_update])
-                    st.write("Expired log3")
                     expired.update([expired_df.columns.values.tolist()] + expired_df.values.tolist(), value_input_option="RAW")
 
-                elif date_diff > 0:
+                elif date_diff >= 0:
                     discount = db_df[db_df.voucher_id==code]['discount_amount'].iloc[0]
                     st.success(f"Voucher bisa digunakan! Diskon : {discount}")
                     #Update used_voucher
@@ -119,6 +119,9 @@ with st.container(border=True):
             
             elif code in used_df.voucher_id.tolist():
                 st.warning(f"Voucher ini telah digunakan pada {used_df[used_df.voucher_id==code]['used_at'].iloc[0]}")
+            
+            elif code in expired_df.voucher_id.tolist():
+                st.warning(f"Voucher telah kadaluarsa dan telah dicoba lagi pada {expired_df[expired_df.voucher_id==code]['triggered_date'].iloc[0]}") 
             
         except:
             st.warning("Gagal membaca QR Code, ulang pengecekan")
