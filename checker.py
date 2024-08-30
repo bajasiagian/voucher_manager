@@ -56,7 +56,7 @@ with st.container(border=True):
             
                 # Check if still valid
                 if date_diff < 0:
-                    st.warning(f"Voucher kadaluarsa pada {datetime.datetime.strptime(db_df[db_df.voucher_id==code]['end_date'].iloc[0],"%Y-%m-%d")}")
+                    st.warning(f"Voucher kadaluarsa pada {(datetime.datetime.strptime(db_df[db_df.voucher_id==code]['end_date'].iloc[0],"%Y-%m-%d")).date()}")
                     #Update expired
                     expire_update = pd.DataFrame({"voucher_id":[code],"triggered_date":[str(datetime.datetime.today())]})
                     expired_df = pd.concat([expired_df,expire_update])
@@ -77,7 +77,7 @@ with st.container(border=True):
                 st.warning(f"Voucher ini telah digunakan pada {used_df[used_df.voucher_id==code]['used_at'].iloc[0]}")
 
             elif code in expired_df.voucher_id.tolist():
-                st.warning(f"Voucher telah kadaluarsa dan telah dicoba lagi pada {expired_df[expired_df.voucher_id==code]['triggered_date'].iloc[0]}") 
+                st.warning(f"Voucher telah kadaluarsa dan telah dicoba lagi pada {expired_df[expired_df.voucher_id==code]['triggered_date'].iloc[0].date()}") 
             
         except:
             st.warning("Gagal membaca QR Code, ulang pengecekan")
@@ -98,7 +98,7 @@ with st.container(border=True):
                 date_diff = (datetime.datetime.strptime(db_df[db_df.voucher_id==code]['end_date'].iloc[0],"%Y-%m-%d").date() - date.today()).days
                 # Check if still valid
                 if date_diff < 0:
-                    st.warning(f"Voucher kadaluarsa pada {datetime.datetime.strptime(db_df[db_df.voucher_id==code]['end_date'].iloc[0],"%Y-%m-%d")}")
+                    st.warning(f"Voucher kadaluarsa pada {(datetime.datetime.strptime(db_df[db_df.voucher_id==code]['end_date'].iloc[0],"%Y-%m-%d")).date()}")
                     #Update expired
                     expire_update = pd.DataFrame({"voucher_id":[code],"triggered_date":[str(datetime.datetime.today())]})
                     expired_df = pd.concat([expired_df,expire_update])
@@ -119,7 +119,7 @@ with st.container(border=True):
                 st.warning(f"Voucher ini telah digunakan pada {used_df[used_df.voucher_id==code]['used_at'].iloc[0]}")
             
             elif code in expired_df.voucher_id.tolist():
-                st.warning(f"Voucher telah kadaluarsa dan telah dicoba lagi pada {expired_df[expired_df.voucher_id==code]['triggered_date'].iloc[0]}") 
+                st.warning(f"Voucher telah kadaluarsa dan telah dicoba lagi pada {expired_df[expired_df.voucher_id==code]['triggered_date'].iloc[0].date()}") 
             
         except:
             st.warning("Gagal membaca QR Code, ulang pengecekan")
