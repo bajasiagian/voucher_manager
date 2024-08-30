@@ -52,7 +52,7 @@ with st.container(border=True):
             code = b[0].data.decode('utf-8')
             
             if code in db_df.voucher_id.tolist() and code not in used_df.voucher_id.tolist() and code not in expired_df.voucher_id.tolist():
-                date_diff = (datetime.datetime.strptime(db_df[db_df.voucher_id==code]['end_date'].iloc[0],"%Y-%m-%d") - date.today()).days
+                date_diff = (datetime.datetime.strptime(db_df[db_df.voucher_id==code]['end_date'].iloc[0],"%Y-%m-%d").date() - date.today()).days
             
                 # Check if still valid
                 if date_diff < 0:
@@ -95,7 +95,7 @@ with st.container(border=True):
             code = b[0].data.decode('utf-8')
             
             if code in db_df.voucher_id.tolist() and code not in used_df.voucher_id.tolist() and code not in expired_df.voucher_id.tolist():
-                date_diff = (datetime.datetime.strptime(db_df[db_df.voucher_id==code]['end_date'].iloc[0],"%Y-%m-%d") - date.today()).days
+                date_diff = (datetime.datetime.strptime(db_df[db_df.voucher_id==code]['end_date'].iloc[0],"%Y-%m-%d").date() - date.today()).days
                 # Check if still valid
                 if date_diff < 0:
                     st.warning(f"Voucher kadaluarsa pada {datetime.datetime.strptime(db_df[db_df.voucher_id==code]['end_date'].iloc[0],"%Y-%m-%d")}")
