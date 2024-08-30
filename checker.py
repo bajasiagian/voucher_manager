@@ -35,6 +35,7 @@ data_expired = expired.get_all_values()
 column_names_expired = data_expired[0]
 data_expired = data_expired[1:]
 expired_df = pd.DataFrame(data_expired, columns=column_names_expired)
+st.dataframe(expired_df)
 
 st.title("Voucher Checker ✅")
 # -------------------------------------------------#
