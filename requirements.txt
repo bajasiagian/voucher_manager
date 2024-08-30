@@ -6,4 +6,5 @@ oauthlib == 3.2.2
 pandas == 2.2.2
 gspread == 5.12.4
 qrcode
+numpy
 uuid == 1.30

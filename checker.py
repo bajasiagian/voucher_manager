@@ -6,6 +6,7 @@ import gspread
 import pandas as pd
 from datetime import date
 import datetime
+import numpy as np
 
 
 # Data Uploader
@@ -98,12 +99,13 @@ with st.container(border=True):
             st.write(date_diff)
             # Check if still valid
             if date_diff <= 0:
-                st.write("Expired log1")
+                st.warning("Voucher Kadaluarsa")
                 #Update expired
                 st.write("Check 1.1")
                 expire_update = pd.DataFrame({"voucher_id":[code],"triggered_date":[str(datetime.datetime.today())]})
                 st.write("Expired log2")
                 expired_df = pd.concat([expired_df,expire_update])
+                expired_df = expired_df.replace([np.inf, -np.inf], np.nan).fillna(0)
                 st.write("Expired log3")
                 expired.update([expired_df.columns.values.tolist()] + expired_df.values.tolist(), value_input_option="RAW")
 
