@@ -59,7 +59,7 @@ with st.container(border=True):
                 if date_diff <= 0:
                     st.write("Expired")
                     #Update expired
-                    expire_update = pd.DataFrame({"voucher_id":[code],"triggered_date":[str(date.today())]})
+                    expire_update = pd.DataFrame({"voucher_id":[code],"triggered_date":[str(datetime.datetime.today())]})
                     expired_df = pd.concat([expired_df,expire_update])
                     expired.update([expired_df.columns.values.tolist()] + expired_df.values.tolist(), value_input_option="RAW")
 
@@ -67,7 +67,7 @@ with st.container(border=True):
                     discount = db_df[db_df.voucher_id==code]['discount_amount'].iloc[0]
                     st.success(f"Voucher bisa digunakan! Diskon : {discount}")
                     #Update used_voucher
-                    use_update = pd.DataFrame({"voucher_id":[code],"used_at":[str(date.today())]})
+                    use_update = pd.DataFrame({"voucher_id":[code],"used_at":[str(datetime.datetime.today())]})
                     used_df = pd.concat([used_df,use_update])
                     used.update([used_df.columns.values.tolist()] + used_df.values.tolist(), value_input_option="RAW")
 
@@ -99,7 +99,7 @@ with st.container(border=True):
                 if date_diff <= 0:
                     st.write("Expired")
                     #Update expired
-                    expire_update = pd.DataFrame({"voucher_id":[code],"triggered_date":[str(date.today())]})
+                    expire_update = pd.DataFrame({"voucher_id":[code],"triggered_date":[str(datetime.datetime.today())]})
                     expired_df = pd.concat([expired_df,expire_update])
                     expired.update([expired_df.columns.values.tolist()] + expired_df.values.tolist(), value_input_option="RAW")
 
@@ -107,7 +107,7 @@ with st.container(border=True):
                     discount = db_df[db_df.voucher_id==code]['discount_amount'].iloc[0]
                     st.success(f"Voucher bisa digunakan! Diskon : {discount}")
                     #Update used_voucher
-                    use_update = pd.DataFrame({"voucher_id":[code],"used_at":[str(date.today())]})
+                    use_update = pd.DataFrame({"voucher_id":[code],"used_at":[str(datetime.datetime.today())]})
                     used_df = pd.concat([used_df,use_update])
                     used.update([used_df.columns.values.tolist()] + used_df.values.tolist(), value_input_option="RAW")
 

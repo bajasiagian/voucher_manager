@@ -5,7 +5,7 @@ import streamlit as st
 from oauth2client.service_account import ServiceAccountCredentials
 import gspread
 import pandas as pd
-from datetime import date
+import datetime
 
 scope = ['https://www.googleapis.com/auth/spreadsheets',
         'https://www.googleapis.com/auth/drive']
@@ -57,7 +57,7 @@ with st.form("my_form"):
         
         #Create row
         new_df = pd.DataFrame({"voucher_id":[uuid_str],
-                               "release_date":[str(date.today())],
+                               "release_date":[str(datetime.datetime.today())],
                                "start_date":[str(start_date)],
                                "end_date":[str(end_date)],
                                "discount_amount":[str(discount_amount)]})
