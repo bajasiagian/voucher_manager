@@ -53,11 +53,10 @@ with st.container(border=True):
             
             if code in db_df.voucher_id.tolist() and code not in used_df.voucher_id.tolist() and code not in expired_df.voucher_id.tolist():
                 date_diff = (datetime.datetime.strptime(db_df[db_df.voucher_id==code]['end_date'].iloc[0],"%Y-%m-%d") - datetime.datetime.today()).days
-                st.write(date_diff)
             
                 # Check if still valid
                 if date_diff < 0:
-                    st.warning("Voucher Expired")
+                    st.warning(f"Voucher kadaluarsa pada {datetime.datetime.strptime(db_df[db_df.voucher_id==code]['end_date'].iloc[0],"%Y-%m-%d")}")
                     #Update expired
                     expire_update = pd.DataFrame({"voucher_id":[code],"triggered_date":[str(datetime.datetime.today())]})
                     expired_df = pd.concat([expired_df,expire_update])
@@ -76,7 +75,7 @@ with st.container(border=True):
             
             elif code in used_df.voucher_id.tolist():
                 st.warning(f"Voucher ini telah digunakan pada {used_df[used_df.voucher_id==code]['used_at'].iloc[0]}")
-                
+
             elif code in expired_df.voucher_id.tolist():
                 st.warning(f"Voucher telah kadaluarsa dan telah dicoba lagi pada {expired_df[expired_df.voucher_id==code]['triggered_date'].iloc[0]}") 
             
@@ -97,10 +96,9 @@ with st.container(border=True):
             
             if code in db_df.voucher_id.tolist() and code not in used_df.voucher_id.tolist() and code not in expired_df.voucher_id.tolist():
                 date_diff = (datetime.datetime.strptime(db_df[db_df.voucher_id==code]['end_date'].iloc[0],"%Y-%m-%d") - datetime.datetime.today()).days
-                st.write(date_diff)
                 # Check if still valid
                 if date_diff < 0:
-                    st.warning("Voucher Expired")
+                    st.warning(f"Voucher kadaluarsa pada {datetime.datetime.strptime(db_df[db_df.voucher_id==code]['end_date'].iloc[0],"%Y-%m-%d")}")
                     #Update expired
                     expire_update = pd.DataFrame({"voucher_id":[code],"triggered_date":[str(datetime.datetime.today())]})
                     expired_df = pd.concat([expired_df,expire_update])
