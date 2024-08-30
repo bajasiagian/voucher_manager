@@ -53,7 +53,6 @@ with st.container(border=True):
             
             if code in db_df.voucher_id.tolist() and code not in used_df.voucher_id.tolist() and code not in expired_df.voucher_id.tolist():
                 date_diff = (datetime.datetime.strptime(db_df[db_df.voucher_id==code]['end_date'].iloc[0],"%Y-%m-%d") - datetime.datetime.today()).days
-                discount = db_df[db_df.voucher_id==code]['discount_amount'].iloc[0]
             
                 # Check if still valid
                 if date_diff <= 0:
@@ -64,6 +63,7 @@ with st.container(border=True):
                     expired.update([expired_df.columns.values.tolist()] + expired_df.values.tolist(), value_input_option="RAW")
 
                 elif date_diff > 0:
+                    discount = db_df[db_df.voucher_id==code]['discount_amount'].iloc[0]
                     st.success(f"Voucher bisa digunakan! Diskon : {discount}")
                     #Update used_voucher
                     use_update = pd.DataFrame({"voucher_id":[code],"used_at":[str(date.today())]})
